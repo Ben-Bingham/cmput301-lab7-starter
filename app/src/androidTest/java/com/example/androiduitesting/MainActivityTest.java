@@ -74,4 +74,46 @@ public class MainActivityTest {
         // You can also use anything() in place of is(instanceOf(String.class))
         onData(is(instanceOf(String.class))).inAdapterView(withId(R.id.city_list)).atPosition(0).check(matches((withText("Edmonton"))));
     }
+
+    @Test
+    public void testSwitchActivity() {
+        // Add first city to the list
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        onView(withId(R.id.city_list)).perform(click());
+
+        onView(withText("Edmonton")).check(matches(isDisplayed()));
+        onView(withText("Back")).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void testCityNameConsistent() {
+        // Add first city to the list
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        onView(withId(R.id.city_list)).perform(click());
+
+        onView(withText("Edmonton")).check(matches(isDisplayed()));
+    }
+
+    public void testBackButton() {
+        // Add first city to the list
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(ViewActions.typeText("Edmonton"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+        onView(withId(R.id.city_list)).perform(click());
+
+        onView(withText("Edmonton")).check(matches(isDisplayed()));
+        onView(withText("Back")).check(matches(isDisplayed()));
+
+        onView(withId(R.id.back_button)).perform(click());
+
+        onView(withText("ADD CITY")).check(matches(isDisplayed()));
+        onView(withText("CLEAR ALL")).check(matches(isDisplayed()));
+    }
 }
